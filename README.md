@@ -56,7 +56,7 @@ Step 1: Follow the Steps Outlined in Prerequisites
 
 Step 2:  Update Configurations (.env File)
 
--   ✅ [Clone Code](https://bitbucket.org/LCubeStudios/slingshot-api/src/master/) 
+-   ✅ [Clone Code](https://github.com/lcubestudios/slignshot-api.git) 
 -   ✅ Database Credentials
 -   ✅ Database Ports
 -   ✅ PhpMyAdmin Ports
@@ -166,7 +166,7 @@ Step 2: Install Server Requirements
 
 Step 3: Install the Dependencies 
 
--   ✅ [Clone Code](https://bitbucket.org/LCubeStudios/slingshot-api/src/master/) 
+-   ✅ [Clone Code](https://github.com/lcubestudios/slignshot-api.git) 
 -   ✅ Change Git branch to dev
 ```sh
 git checkout dev
