@@ -19,11 +19,11 @@ class Database:
     def __init__(self):
         global my_db, my_cursor
         my_db = mysql.connector.connect(
-            host=os.getenv("host"),
-            user=os.getenv("user"),
-            password=os.getenv("password"),
-            database=os.getenv("database"),
-            port=os.getenv("port")
+            host=os.getenv("DATABASE_HOST"),
+            user=os.getenv("DATABASE_USER"),
+            password=os.getenv("DATABASE_USER_PASSWORD"),
+            database=os.getenv("DATABASE_NAME"),
+            port=os.getenv("DATABASE_PORT")
         )
         my_cursor = my_db.cursor()
 
