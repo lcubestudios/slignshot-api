@@ -1,5 +1,4 @@
 FROM php:7.4-apache
-#FROM php:7.4
 
 #ENV Variables
 ENV APP_DIR=/var/www/html/
