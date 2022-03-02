@@ -1,13 +1,17 @@
 from classes import *
 
-##Delete Audio ##
+# Load Classes
 db = Database()
 method= Methods()
 
-#Pass ids 
+# Params
 id = sys.argv[1]
 audio_id = [id]
 
-#Delete audio
-method.DeleteAudio(audio_id)
-print("Audio with " + id + " has been deleted")
+# Delete Query 
+delete = method.DeleteAudio(audio_id)
+
+# Output
+content = ("Audio have been deleted")
+output = {"success": "true", "status": 200, "results":content, "audio_id": id}
+print(output)

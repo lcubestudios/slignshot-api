@@ -1,4 +1,5 @@
 from cgi import print_form
+from xxlimited import new
 import mysql.connector
 from mysql.connector import Error
 from google.cloud import speech
@@ -9,7 +10,7 @@ import sys
 import audioread
 import io
 import re
-
+import json
 
  # LOAD CONTAINER VARIABLES
 load_dotenv()
@@ -23,7 +24,8 @@ class Database:
             user=os.getenv("DATABASE_USER"),
             password=os.getenv("DATABASE_USER_PASSWORD"),
             database=os.getenv("DATABASE_NAME"),
-            port=os.getenv("DATABASE_PORT")
+            port=os.getenv("DATABASE_PORT"),
+            auth_plugin='mysql_native_password'
         )
         my_cursor = my_db.cursor()
 
@@ -65,12 +67,12 @@ class Methods:
         return data
     
     def InsertNewAudio(self,file,dir,transcript,blob,duration):
-        sql = "insert into ast_voicemessages (audioname,dir,txtrecording,recording,duration,lastmodify) value (%s,%s,%s,%s,%s,CURTIME())"
+        sql = "insert into ast_voicemessages (audioname,dir,txtrecording,recording,duration,lastmodify) values (%s,%s,%s,%s,%s,CURTIME())"
         data =(file,dir,transcript,blob,duration)
-        #print(data)
+        #print(sql)
         my_cursor.execute(sql,data)
         my_cursor.close()
-
+        
     def UpdateAudio(self, audio_id, transcript,duration):
         sql= "update ast_voicemessages set txtrecording=%s,duration=%s,audioname=%s,lastmodify=CURTIME() where msg_id=%s"
         new_audioname = "Audio_"+ str(audio_id)
@@ -83,32 +85,30 @@ class Methods:
 
 
 class CoreFunctions:
-    def SpeechToText(self,file):
+    def SpeechToText(self,file_name):
+        
         # Creates google client
+        #client = speech.SpeechClient.from_service_account_file('/home/kira/projects/slingshot/slingshot-api/key.json')
         client = speech.SpeechClient()
 
-        # Full path of the audio file, Replace with your file name
-        file_name = os.path.join(os.path.dirname(__file__),file)
-
-        #Loads the audio file into memory
-        with io.open(file_name, "rb") as audio_file:
-            content = audio_file.read()
+        with open(file_name, "rb") as f:
+            content = f.read()
             audio = speech.RecognitionAudio(content=content)
-
-        config = speech.RecognitionConfig(
-            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-            audio_channel_count=1,
-            language_code="en-US",
+            config = speech.RecognitionConfig(
+            language_code="en-US"
         )
-
         # Sends the request to google to transcribe the audio
-        response = client.recognize(request={"config": config, "audio": audio})
+        operation = client.long_running_recognize(config=config, audio=audio)
+        print("Waiting for operation to complete...")
+        response = operation.result(timeout=90)
+        
+        audio_list=[]  
 
-        # Reads the response
         for result in response.results:
-            #print("Transcript: {}".format(result.alternatives[0].transcript))
-            text_audio="{}".format(result.alternatives[0].transcript)
-            return text_audio
+            for result1 in result.alternatives:
+                text_audio = result1.transcript
+                audio_list.append(text_audio)
+        return audio_list
 
     # Convert Audio to Binary 
     def ConvertToBinary(self,file):
@@ -120,22 +120,27 @@ class CoreFunctions:
     def WriteFile(self, data,file_name):
         with open(file_name, 'wb') as f:
             f.write(data)
-
+            
     #Load Audio Duration
-    def AudioDuration(self,file):
-        # Audio length function
-        def DurationDetector(length):
-            hours = length // 3600  # calculate in hours
-            length %= 3600
-            mins = length // 60  # calculate in minutes
-            length %= 60
-            seconds = length  # calculate in seconds
-            return hours, mins, seconds
-
+    def AudioDuration(self,file):  
         with audioread.audio_open(file) as f:
             # totalsec contains the length in float
             audio = f.duration
-            hours, mins, seconds = DurationDetector(int(audio))
-            #print('Total Duration: {}:{}:{}'.format(hours, mins, seconds))
-            total_length=('{}:{}:{}'.format(hours, mins, seconds))
+            total_length=(int(audio))
             return (total_length)
+        
+    #Split Audio
+    def SplitAudio(self, file, duration):
+        segmentbysec = 59
+        audio_list = []
+        
+        for i in range(0, duration, segmentbysec):
+            segments = i + segmentbysec
+            newaudioname = "temp-audio-" + str(i)+ "-" + str(segments) + ".wav"
+            os.system("ffmpeg -y -hide_banner -loglevel error -i "+file+" -ss "+str(i)+" -t "+str(segmentbysec)+" "+newaudioname)
+            audio_list2=self.SpeechToText(newaudioname)
+            audio_list.append(audio_list2)
+            os.system("rm "+ newaudioname)
+
+        text="".join(["".join(i) for i in audio_list])
+        return text

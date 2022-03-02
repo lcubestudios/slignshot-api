@@ -1,27 +1,44 @@
 from classes import *
 
-##Insert New Audios##
-##POST##
-
+# Load Classes
 db = Database()
 method = Methods()
 function = CoreFunctions()
 
-#Bash scripts passes these variables 
+# Params
 file=sys.argv[1]
 dir=sys.argv[2]
-file_total=dir+"/"+file
-##Transcribe audio to text
-transcript = function.SpeechToText(file_total)
-#print(transcript)
 
-##Convert Audio to blob
+# Convert Audio to blob
 blob = (function.ConvertToBinary(dir+"/"+file))
-#print(blob)
 
-##Audio Duration
+# Audio Duration
 duration = function.AudioDuration(file)
-#print(duration)
 
-method.InsertNewAudio(file,dir,transcript,blob,duration)
-print("New Audio has been transcribed ")
+if (duration < 60):
+    # List
+    audio_list=[]
+    # Transcribe audio to text (google api)
+    transcript = function.SpeechToText(file)
+    # Add content to list
+    audio_list.append(transcript)
+    # Join list
+    transcripts="".join(["".join(i) for i in audio_list])
+    # Insert audio in the database
+    method.InsertNewAudio(file,dir,transcripts,blob,duration)
+    # Output
+    content = (file, dir, transcripts, duration)
+    output = {"success": "true", "status": 200, "results":content}
+
+else:
+    # List
+    audio_list = []
+    # Split & Transcribe audio to text
+    transcripts = function.SplitAudio(file, duration)
+    # Insert to database
+    method.InsertNewAudio(file,dir,transcripts,blob,duration)
+    # Output
+    content = (file, dir, transcripts , duration)
+    output = {"success": "true", "status": 200, "results":content}
+
+print(output) 
