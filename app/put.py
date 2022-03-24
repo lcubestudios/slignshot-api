@@ -35,8 +35,18 @@ if (duration < 60):
     # Update audio in the database
     method.UpdateAudio(audio_id,transcripts,duration)
     # Output
-    content = (audio_id, file_name, transcripts, duration)
-    output = {"success": "true", "status": 200, "results":content}
+    content = {
+        "msg_id": audio_id, 
+        "file_name": file_name, 
+        "duration": duration,
+        "txtrecording": transcripts
+    }
+    output = {
+        "success": "true", 
+        "status": 200, 
+        "message": "Record has been updated.", 
+        "results": content
+    }
 else:
     # List
     audio_list = []
@@ -45,10 +55,20 @@ else:
     # Update Query
     method.UpdateAudio(audio_id,transcripts,duration)
     # Output
-    content = (audio_id, file_name, transcripts, duration)
-    output = {"success": "true", "status": 200, "results":content}
+    content = {
+        "msg_id": audio_id, 
+        "file_name": file_name, 
+        "duration": duration,
+        "txtrecording": transcripts
+    }
+    output = {
+        "success": "true", 
+        "status": 200, 
+        "message": "Record has been updated.", 
+        "results": content
+    }
     
-print(output) 
+print(json.dumps(output))
 #Remove files
 os.remove(file_name)
 os.remove(new_audio)

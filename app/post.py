@@ -27,8 +27,18 @@ if (duration < 60):
     # Insert audio in the database
     method.InsertNewAudio(file,dir,transcripts,blob,duration)
     # Output
-    content = (file, dir, transcripts, duration)
-    output = {"success": "true", "status": 200, "results":content}
+    content = {
+        "filename": file, 
+        "dir": dir, 
+        "duration": duration,
+        "txtrecording": transcripts
+    }
+    output = {
+        "success": "true", 
+        "status": 200, 
+        "message": "Record has been added.",
+        "results": content
+    }
 
 else:
     # List
@@ -38,7 +48,17 @@ else:
     # Insert to database
     method.InsertNewAudio(file,dir,transcripts,blob,duration)
     # Output
-    content = (file, dir, transcripts , duration)
-    output = {"success": "true", "status": 200, "results":content}
+    content = {
+        "filename": file, 
+        "dir": dir, 
+        "duration": duration,
+        "txtrecording": transcripts
+    }
+    output = {
+        "success": "true", 
+        "status": 200, 
+        "message": "Record has been added.",
+        "results": content
+    }
 
-print(output) 
+print(json.dumps(output))

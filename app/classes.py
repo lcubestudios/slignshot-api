@@ -38,7 +38,11 @@ class Methods:
         #sql= "SELECT * FROM ast_voicemessages WHERE msg_id=%s"        
         try:
             my_cursor.execute(sql, audio_id)
-            result = my_cursor.fetchone()
+            result = [dict((my_cursor.description[i][0], str(value)) \
+                for i, value in enumerate(row)) 
+                    for row in my_cursor.fetchall()
+            ][0]
+
             my_cursor.close()
         except Exception as e:
             return e
@@ -99,15 +103,15 @@ class CoreFunctions:
         )
         # Sends the request to google to transcribe the audio
         operation = client.long_running_recognize(config=config, audio=audio)
-        print("Waiting for operation to complete...")
         response = operation.result(timeout=90)
         
-        audio_list=[]  
+        audio_list=[]
 
         for result in response.results:
-            for result1 in result.alternatives:
-                text_audio = result1.transcript
+            for alt in result.alternatives:
+                text_audio = alt.transcript
                 audio_list.append(text_audio)
+                
         return audio_list
 
     # Convert Audio to Binary 

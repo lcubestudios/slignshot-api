@@ -13,8 +13,18 @@ content = method.LoadSingleAudio(audio_id)
 
 # Check if ID Exists
 if (content):
-    output = {"success": "true", "status": 200, "results":content}
+    output = {
+        "success": "true", 
+        "status": 200,
+        "message": "Record Found.", 
+        "results": content
+    }
 else:
-    output = {"success": "false", "status": 404, "results":"Not Found"}
+    output = {
+        "success": "false", 
+        "status": 404, 
+        "message": "Record Not Found.",
+        "result": None
+    }
 
-print(output) 
+print(json.dumps(output))
