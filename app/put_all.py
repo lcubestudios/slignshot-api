@@ -36,14 +36,8 @@ if (count > 0):
         duration = function.AudioDuration(new_audio)
         
         if (duration < 60):
-            # list
-            audio_list=[]
             # Transcribe audio to text
-            transcript = function.SpeechToText(new_audio)
-            # Add content to list
-            audio_list.append(transcript)
-            # Join list
-            transcripts="".join(["".join(i) for i in audio_list])
+            transcripts = function.SpeechToText(new_audio)[0]
             # Update audio in the database
             method.UpdateAudio(audio_id,transcripts,duration)
             # Output
@@ -54,8 +48,6 @@ if (count > 0):
                 "txtrecording": transcripts
             }
         else:
-            # List
-            audio_list = []
             # Split & Transcribe audio to text
             transcripts = function.SplitAudio(new_audio, duration)
             # Update Query
@@ -83,3 +75,5 @@ print(json.dumps(output))
 #Remove files
 os.remove(file_name)
 os.remove(new_audio)
+# Close SQL Connection
+my_cursor.close()

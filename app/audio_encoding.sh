@@ -18,9 +18,11 @@ ConvertToWav(){
 ##Function to Run python script while passing variable
 SendToMysql(){
     cd $AUDIO_DESTINATION_DIRECTORY
+    files=()
     for file in *; do 
-        python3 $PYTHON_SCRIPT $file $AUDIO_DESTINATION_DIRECTORY
+        files+=$file,
     done
+    python3 $PYTHON_SCRIPT $files $AUDIO_DESTINATION_DIRECTORY
 }
 
 ##Function to converto to a wav file 

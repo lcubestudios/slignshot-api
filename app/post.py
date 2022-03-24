@@ -6,59 +6,58 @@ method = Methods()
 function = CoreFunctions()
 
 # Params
-file=sys.argv[1]
+files=sys.argv[1]
 dir=sys.argv[2]
 
-# Convert Audio to blob
-blob = (function.ConvertToBinary(dir+"/"+file))
+array=files.split(',')[:-1]
+count=len(array)
 
-# Audio Duration
-duration = function.AudioDuration(file)
+content = []
 
-if (duration < 60):
-    # List
-    audio_list=[]
-    # Transcribe audio to text (google api)
-    transcript = function.SpeechToText(file)
-    # Add content to list
-    audio_list.append(transcript)
-    # Join list
-    transcripts="".join(["".join(i) for i in audio_list])
-    # Insert audio in the database
-    method.InsertNewAudio(file,dir,transcripts,blob,duration)
-    # Output
-    content = {
-        "filename": file, 
-        "dir": dir, 
-        "duration": duration,
-        "txtrecording": transcripts
-    }
-    output = {
-        "success": "true", 
-        "status": 200, 
-        "message": "Record has been added.",
-        "results": content
-    }
+if (count > 0):
+    for file in array:
+        file_name = dir+"/"+file
+        # Convert Audio to blob
+        blob = (function.ConvertToBinary(file_name))
 
-else:
-    # List
-    audio_list = []
-    # Split & Transcribe audio to text
-    transcripts = function.SplitAudio(file, duration)
-    # Insert to database
-    method.InsertNewAudio(file,dir,transcripts,blob,duration)
-    # Output
-    content = {
-        "filename": file, 
-        "dir": dir, 
-        "duration": duration,
-        "txtrecording": transcripts
-    }
-    output = {
-        "success": "true", 
-        "status": 200, 
-        "message": "Record has been added.",
-        "results": content
-    }
+        # Audio Duration
+        duration = function.AudioDuration(file)
+        
+        if (duration < 60):
+            # Transcribe audio to text (google api)
+            transcripts = function.SpeechToText(file)[0]
+            # Insert audio in the database
+            method.InsertNewAudio(file,dir,transcripts,blob,duration)
+            # Output
+            content.append({
+                "filename": file, 
+                "dir": dir, 
+                "duration": duration,
+                "txtrecording": transcripts
+            })
+            
+        else:
+            # Split & Transcribe audio to text
+            transcripts = function.SplitAudio(file, duration)
+            # Insert to database
+            method.InsertNewAudio(file,dir,transcripts,blob,duration)
+            # Output
+            content.append({
+                "filename": file, 
+                "dir": dir, 
+                "duration": duration,
+                "txtrecording": transcripts
+            })
+        # Remove files
+        os.remove(file_name)
+
+output = {
+    "success": "true", 
+    "status": 200, 
+    "message": str(count) + " record(s) has been added.",
+    "results": content
+}
 
 print(json.dumps(output))
+# Close SQL Connection
+my_cursor.close()
