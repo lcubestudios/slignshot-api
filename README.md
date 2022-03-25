@@ -14,11 +14,11 @@ A modular batch application that extracts, transcodes, and transforms the proper
 ## 🧰 Prerequisites
 
 #### Source Code
-- Clone [repository](https://github.com/lcubestudios/slingshot-api) (run the following command inside the terminal)
+- Clone [repository](https://github.com/lcubestudios/voicetotext-api) (run the following command inside the terminal)
 
     ```sh
-    git clone https://github.com/lcubestudios/slingshot-api.git
-    cd slingshot-api
+    git clone https://github.com/lcubestudios/voicetotext-api.git
+    cd voicetotext-api
     ```
     > Keep this terminal active, this is where you will be required to run the commands stated below
 
@@ -46,8 +46,6 @@ A modular batch application that extracts, transcodes, and transforms the proper
 ## OPTION 1 – 🐳 Docker 
 > Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
 > Setup time 15 min
-
-🎥 [Demo Video](https://link.us1.storjshare.io/jxvsrbj5le6lz7wgeqtsot2xs6aa/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slingshot-Docker.mp4)
 
 This method allows the application to easily be installed and deployed in a Docker container.
 
@@ -101,7 +99,7 @@ git checkout master
 
 1. Start Docker Service/Application
 2. Run the following command inside the terminal in the project root directory
-    > This will create the Slingshot image and pull in the necessary dependencies.
+    > This will create the Docker image and pull in the necessary dependencies.
 
     If this is your first time running Docker run:
     ```sh
@@ -139,8 +137,6 @@ docker compose down
 ## OPTION 2 - Building from source
 > Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
 > Setup time 15 min
-
-🎥 [Demo Video](https://link.us1.storjshare.io/jwett4vprqdewetmw7vmvptq6wea/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slignshot-Git.mp4)
 
 #### Before you Start:
 
