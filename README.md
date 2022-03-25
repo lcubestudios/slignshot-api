@@ -54,9 +54,9 @@ The application can be deployed in a local machine or directly on a Linux server
 #### Before you Start:
 
 ##### Git
-Make sure you are on the **master** branch (run the following command inside the terminal)
+Make sure you are on the **docker** branch (run the following command inside the terminal)
 ```sh
-git checkout master
+git checkout docker
 ```
     
 ##### Docker
@@ -141,9 +141,9 @@ docker compose down
 #### Before you Start:
 
 ##### Git
-Make sure you are on the **dev** branch (run the following command inside the terminal)
+Make sure you are on the **master** branch (run the following command inside the terminal)
 ```sh
-git checkout dev
+git checkout master
 ```
 
 #### Step 1: Install Server Requirements
