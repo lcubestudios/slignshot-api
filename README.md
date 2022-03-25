@@ -15,6 +15,7 @@ A modular batch application that extracts, transcodes, and transforms the proper
 
 #### Source Code
 - Clone [repository](https://github.com/lcubestudios/slingshot-api) (run the following command inside the terminal)
+
     ```sh
     git clone https://github.com/lcubestudios/slingshot-api.git
     cd slingshot-api
@@ -43,7 +44,7 @@ A modular batch application that extracts, transcodes, and transforms the proper
 --- 
 
 ## OPTION 1 – 🐳 Docker 
-> *Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
+> Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
 > Setup time 15 min
 
 🎥 [Demo Video](https://link.us1.storjshare.io/jxvsrbj5le6lz7wgeqtsot2xs6aa/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slingshot-Docker.mp4)
@@ -136,7 +137,7 @@ docker compose down
 ---
 
 ## OPTION 2 - Building from source
-> *Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
+> Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
 > Setup time 15 min
 
 🎥 [Demo Video](https://link.us1.storjshare.io/jwett4vprqdewetmw7vmvptq6wea/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slignshot-Git.mp4)
@@ -355,7 +356,4 @@ ALTER TABLE `ast_voicemessages` ADD `audioname` VARCHAR(80) NOT NULL AFTER `flag
 - [Discord](https://discord.com/invite/6Ud9x23zaK)
 - [Github](https://github.com/lcubestudios)
 
-## 💡 Let's make your FrameWork 
-
-
-
+## 💡 Let's make your FrameWork
