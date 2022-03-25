@@ -2,20 +2,14 @@
 
 A modular batch application that extracts, transcodes, and transforms the properties of audio files, transcribes audio to text, and stores the final conversion into a relational database.
 
----
-
 ## 📜 Main Use Case
 
 -   Transcribe voicemails into text.
-
----
 
 ## 🦄 Features
 
 -   Intake a single audio file or a directory of audio files
 -   Able to use different languages with Google APIs - default is English  
-
----
 
 ## 🧰 Prerequisites
 
@@ -36,19 +30,16 @@ A modular batch application that extracts, transcodes, and transforms the proper
 - Rename API key file to `key.json`
 - Store key file for later use
 
----
-
 ## 📚 Additional Links
 
 -   [Docker Hub](https://www.docker.com/products/docker-hub)
 -   [Postman Importing Data](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
 -   [Google Speech-to-Text Product Information](https://cloud.google.com/speech-to-text)
 
----
-
 ## 🏃Running the Solution
 - **OPTION 1** - Docker
 - **OPTION 2** - Building from source
+
 --- 
 
 ## OPTION 1 – 🐳 Docker 
