@@ -38,7 +38,11 @@ class Methods:
         #sql= "SELECT * FROM ast_voicemessages WHERE msg_id=%s"        
         try:
             my_cursor.execute(sql, audio_id)
-            result = my_cursor.fetchone()
+            result = [dict((my_cursor.description[i][0], str(value)) \
+                for i, value in enumerate(row)) 
+                    for row in my_cursor.fetchall()
+            ][0]
+
             my_cursor.close()
         except Exception as e:
             return e
@@ -69,9 +73,7 @@ class Methods:
     def InsertNewAudio(self,file,dir,transcript,blob,duration):
         sql = "insert into ast_voicemessages (audioname,dir,txtrecording,recording,duration,lastmodify) values (%s,%s,%s,%s,%s,CURTIME())"
         data =(file,dir,transcript,blob,duration)
-        #print(sql)
         my_cursor.execute(sql,data)
-        my_cursor.close()
         
     def UpdateAudio(self, audio_id, transcript,duration):
         sql= "update ast_voicemessages set txtrecording=%s,duration=%s,audioname=%s,lastmodify=CURTIME() where msg_id=%s"
@@ -99,15 +101,15 @@ class CoreFunctions:
         )
         # Sends the request to google to transcribe the audio
         operation = client.long_running_recognize(config=config, audio=audio)
-        print("Waiting for operation to complete...")
         response = operation.result(timeout=90)
         
-        audio_list=[]  
+        audio_list=[]
 
         for result in response.results:
-            for result1 in result.alternatives:
-                text_audio = result1.transcript
+            for alt in result.alternatives:
+                text_audio = alt.transcript
                 audio_list.append(text_audio)
+                
         return audio_list
 
     # Convert Audio to Binary 
@@ -142,5 +144,5 @@ class CoreFunctions:
             audio_list.append(audio_list2)
             os.system("rm "+ newaudioname)
 
-        text="".join(["".join(i) for i in audio_list])
+        text="".join([" ".join(i) for i in audio_list])
         return text

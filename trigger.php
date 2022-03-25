@@ -4,19 +4,17 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        $id= $_GET["id"];
+        $id = $_GET["id"];
         $sh = shell_exec("python3 get.py $id");
         echo($sh);
         break;
     case 'POST':
-        $command= "bash audio_encoding.sh";
+        $command = "bash audio_encoding.sh";
         $sh = shell_exec($command);
         echo($sh);
         break;
     case 'PUT':
-        $raw=file_get_contents('php://input');
-        $json=json_decode($raw,true); 
-        $id=$json['id'];
+        $id= $_GET["id"];
         if ($id != NULL ){
             $sh = shell_exec("python3 put.py $id");
             echo($sh);
@@ -28,9 +26,7 @@ switch ($method) {
         }
         break;
     case 'DELETE':
-        $raw=file_get_contents('php://input');
-        $json=json_decode($raw,true); 
-        $id=$json['id'];
+        $id = $_GET["id"];
         if ($id != NULL ){
             $sh = shell_exec("python3 delete.py $id");
             echo($sh);
