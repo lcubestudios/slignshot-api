@@ -52,7 +52,7 @@ A modular batch application that extracts, transcodes, and transforms the proper
 --- 
 
 ## OPTION 1 – 🐳 Docker 
-> *Make sure you have completed the tasks mentioned in the [Prerequisites](#🧰-prerequisites) section above before proceeding
+> *Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
 > Setup time 15 min
 
 🎥 [Demo Video](https://link.us1.storjshare.io/jxvsrbj5le6lz7wgeqtsot2xs6aa/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slingshot-Docker.mp4)
@@ -94,7 +94,7 @@ git checkout master
     DATABASE_PORT=YOUR_PORT
     ```
     
-    **IF** you want to run a test database uncomment `PMA_PORT` on `line 11` and update the following variables:
+    **IF** you want to run a test database uncomment `PMA_PORT` and update the following variables:
     
     ```
     DATABASE_HOST=“db”
@@ -145,7 +145,7 @@ docker compose down
 ---
 
 ## OPTION 2 - Building from source
-> *Make sure you have completed the tasks mentioned in the [Prerequisites](#🧰-prerequisites) section above before proceeding
+> *Make sure you have completed the tasks mentioned in the [Prerequisites](#-prerequisites) section above before proceeding
 > Setup time 15 min
 
 🎥 [Demo Video](https://link.us1.storjshare.io/jwett4vprqdewetmw7vmvptq6wea/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slignshot-Git.mp4)
