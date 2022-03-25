@@ -37,7 +37,7 @@ if (duration < 60):
     # Output
     content = {
         "msg_id": audio_id, 
-        "file_name": file_name, 
+        "audioname": file_name, 
         "duration": duration,
         "txtrecording": transcripts
     }
@@ -57,7 +57,7 @@ else:
     # Output
     content = {
         "msg_id": audio_id, 
-        "file_name": file_name, 
+        "audioname": file_name, 
         "duration": duration,
         "txtrecording": transcripts
     }

@@ -30,7 +30,7 @@ if (count > 0):
             method.InsertNewAudio(file,dir,transcripts,blob,duration)
             # Output
             content.append({
-                "filename": file, 
+                "audioname": file, 
                 "dir": dir, 
                 "duration": duration,
                 "txtrecording": transcripts
@@ -43,7 +43,7 @@ if (count > 0):
             method.InsertNewAudio(file,dir,transcripts,blob,duration)
             # Output
             content.append({
-                "filename": file, 
+                "audioname": file, 
                 "dir": dir, 
                 "duration": duration,
                 "txtrecording": transcripts

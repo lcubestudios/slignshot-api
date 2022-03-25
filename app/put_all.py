@@ -43,7 +43,7 @@ if (count > 0):
             # Output
             content[ndx] = {
                 "msg_id": audio_id, 
-                "file_name": file_name, 
+                "audioname": file_name, 
                 "duration": duration,
                 "txtrecording": transcripts
             }
@@ -55,7 +55,7 @@ if (count > 0):
             # Output
             content[ndx] = {
                 "msg_id": audio_id, 
-                "file_name": file_name, 
+                "audioname": file_name, 
                 "duration": duration,
                 "txtrecording": transcripts
             }

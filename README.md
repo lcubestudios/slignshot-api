@@ -1,252 +1,370 @@
 ## 🎯 Goal
-The Slingshot VoIP team will receive a modular batch application that extracts, transcodes, and transforms the properties of audio files, transcribes audio to text, and stores the final conversion into a relational database.
+
+A modular batch application that extracts, transcodes, and transforms the properties of audio files, transcribes audio to text, and stores the final conversion into a relational database.
 
 ---
 
 ## 📜 Main Use Case
+
 -   Transcribe voicemails into text.
 
 ---
 
 ## 🦄 Features
--   Application can be fed a single or a directory of audios 
--   Ability to use different languages with Google APIs - default is English  
 
----
+-   Intake a single audio file or a directory of audio files
+-   Able to use different languages with Google APIs - default is English  
 
-## 🎥 Demo Videos
--   [Docker](https://link.us1.storjshare.io/jxvsrbj5le6lz7wgeqtsot2xs6aa/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slingshot-Docker.mp4)
--   [AWS AMI](https://link.us1.storjshare.io/jwuaf7btqiyvvdt3x3hxxj5bdoba/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slingshot-AMI.mp4)
--   [Bitbucket/GitHub](https://link.us1.storjshare.io/jwett4vprqdewetmw7vmvptq6wea/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slignshot-Git.mp4)
----
-
-## 📚 Extra Documentantion
--   [Share an AMI with specific organizations or organizational units](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/share-amis-with-organizations-and-OUs.html)
--   [Docker Hub](https://www.docker.com/products/docker-hub)
--   [Postman Importing Data](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
 ---
 
 ## 🧰 Prerequisites
-- [Download Postman](https://www.postman.com/)
-- [Import Postman Collection](https://www.postman.com/collections/eeda3ef277fca5943050)
-- [Google Quick Start Guide](https://cloud.google.com/speech-to-text/docs/libraries)
-- [Google SpeechToText Product Information](https://cloud.google.com/speech-to-text)
+
+#### Source Code
+- Clone [repository](https://github.com/lcubestudios/slingshot-api) (run the following command inside the terminal)
+    ```sh
+    git clone https://github.com/lcubestudios/slingshot-api.git
+    cd slingshot-api
+    ```
+    > Keep this terminal active, this is where you will be required to run the commands stated below
+
+#### Postman
+- [Download](https://www.postman.com/) Postman
+- Follow [How to Guide](https://www.postman.com/collections/eeda3ef277fca5943050) to Import Postman [Collection](https://www.postman.com/collections/66e38d8752042b4b1f4a)
+
+#### Google API Key
+- Follow [How to Guide](https://cloud.google.com/speech-to-text/docs/libraries#setting_up_authentication) to set up authentication
+- Rename API key file to `key.json`
+- Store key file for later use
+
 ---
 
-## 🏃Running the Solution (select an option)
-1. Using Docker
-2. Starting a new server of an AMI (Amazon Web Services Image)
-3. Building from source
+## 📚 Additional Links
+
+-   [Docker Hub](https://www.docker.com/products/docker-hub)
+-   [Postman Importing Data](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
+-   [Google Speech-to-Text Product Information](https://cloud.google.com/speech-to-text)
+
+---
+
+## 🏃Running the Solution
+- **OPTION 1** - Docker
+- **OPTION 2** - Building from source
 --- 
 
-## Option 1 – 🐳 Docker 
+## OPTION 1 – 🐳 Docker 
+> *Make sure you have completed the tasks mentioned in the [Prerequisites](#🧰-prerequisites) section above before proceeding
 > Setup time 15 min
 
-The application can easily be installed and deployed in a Docker container.
+🎥 [Demo Video](https://link.us1.storjshare.io/jxvsrbj5le6lz7wgeqtsot2xs6aa/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slingshot-Docker.mp4)
 
-The application can be deployed in a local machine or directly into a Linux server. (Please refer to the Docker setup video outlined in Demo Videos for guidance.) By default, the Docker will expose ports 80, 8080, 3306 - this can be changed within the .env if necessary. When ready, simply use Docker compose to build the image.
+This method allows the application to easily be installed and deployed in a Docker container.
 
-Images used (docker hub):
+The application can be deployed in a local machine or directly on a Linux server. By default, the Docker will expose ports 80, 8080, 3306 - this can be changed within the .env if necessary. When ready, simply use Docker compose to build the image.
 
--   [PHP:7.4-apache](https://hub.docker.com/_/php)
--   [MYSQL](https://hub.docker.com/_/mysql)
--   [PhpMyAdmin](https://hub.docker.com/_/phpmyadmin)
+#### Before you Start:
 
-Step 1: Follow the Steps Outlined in Prerequisites 
+##### Git
+Make sure you are on the **master** branch (run the following command inside the terminal)
+```sh
+git checkout master
+```
+    
+##### Docker
+- Make sure there are no other containers using the same server ports. (Stop running any existing container or change the default application port (.env file)
+- Delete any old version of the image & volume.
+- Check your internet connection.
 
-Step 2:  Update Configurations (.env File)
+#### Step 1: Install Docker
 
--   ✅ [Clone Code](https://github.com/lcubestudios/slignshot-api.git) 
--   ✅ Database Credentials
--   ✅ Database Ports
--   ✅ PhpMyAdmin Ports
--   ✅ Google Key
--   ✅ Drop the key file into the application directory
+1) Follow [this link](https://hub.docker.com/) to install Docker on your environment
+
+#### Step 2: Set up environment
+
+1. Move the Google API Key file `key.json` to the `/app` directory
+2. Duplicate the `.env.sample` file and rename it to `.env`
+3. Update `.env` variables
+    > For this option **ONLY** update the following variables
+
+    ```
+    ## DATABASE ##
+    DATABASE_HOST=“YOUR_DB_IP”
+    DATABASE_NAME=“YOUR_DB_NAME”
+    DATABASE_USER=“YOUR_DB_USERNAME”
+    DATABASE_USER_PASSWORD=“YOUR_DB_PASSWORD”
+    DATABASE_PORT=YOUR_PORT
+    ```
+    
+    **IF** you want to run a test database uncomment `PMA_PORT` on `line 11` and update the following variables:
+    
+    ```
+    DATABASE_HOST=“db”
+    DATABASE_NAME=“audio_recognition”
+    ```
+
+4. Open `docker-compose.yml` and uncomment `lines 5 - 31`
+    > **ONLY** do this step if want to run the test database
 
  
-Step 3: Start Docker
+#### Step 3: Initialize Docker
 
--   ✅ Run the Docker-compose file 
-```sh
-docker compose up -d –build
-```
+1. Start Docker Service/Application
+2. Run the following command inside the terminal in the project root directory
+    > This will create the Slingshot image and pull in the necessary dependencies.
 
-This will create the Slingshot image and pull in the necessary dependencies.
+    If this is your first time running Docker run:
+    ```sh
+    docker compose up -d
+    ``` 
+    Otherwise run:
+    ```
+    docker compose up -d –-build
+    ```
 
--   ✅ Verify containers are running 
 
-```sh
-docker ps -a
-```
+2. Verify containers are runing (run the following command inside the terminal)
 
- 
-Step 4: Test the Endpoints
+    ```sh
+    docker ps -a
+    ```
 
-Verify the deployment by navigating to your server address in your preferred browser
+#### Step 4: Test endpoints
+1. Verify the deployment by navigating to your server address in your preferred browser
+    > **IF** you are running the test database, navigate to `localhost:8080`
+2. In **POSTMAN** Update `server` variable in the collection to your server address
+    > **IF** you are running the test database, skip this step
+3. Test CRUD commands in **POSTMAN** collection: `GET`, `PUT`, `POST`, `DELETE`
 
--   ✅ Update {{server}} variable in the collection to your server address
--   ✅ GET, PUT, POST, DELETE  
+#### 🎉 DONE
 
-Step 5: Terminate Docker Container
-
-Inside the terminal run. 
+To terminate Docker run the following command inside the terminal:
 
 ```sh
 docker compose down 
 ```
 
-Troubleshooting:
-
--   Make sure there are no other containers using the same server ports. (Stop running any existing container or change the default application port (.env file).)
--   Delete any old version of the image & volume.
--   Check your internet connection.
-
----
-## Option 2 – AMI (Amazon Web Services)
-> Setup time 15 - 20 min
-
-Please refer to the AMI setup video outlined in Demo Videos for guidance. By default, the Docker will expose ports 80, 8080, 3306 - this can be changed within the .env if necessary. When ready, simply use Docker compose to build the image.
-
-Step 1:
-
-- ✅ Search & Run AMI (ami-0dd0e30901f7aaf62)
-
-Step 2: Update Configurations 
-
--   ✅ Database Credentials
--   ✅ Database Ports
--   ✅ PhpMyAdmin Ports
--   ✅ Google Key
-
-Step 3: Start Docker
-
--   ✅ Run the Docker-compose file 
-
-```sh
-docker-compose up -d
-```
-
--   ✅ Verify containers are running 
-
-```sh
-docker ps -a
-```
-
-Step 4: Test the Endpoints
-
-Verify the deployment by navigating to your server address in your preferred browser.
-
--   ✅ Update {{server}} variable in the collection to your Server address
--   ✅ GET, PUT, POST, DELETE  
-
-Step 5: Terminate Docker Container
-
-Inside the terminal run. 
-
-```sh
-docker-compose down 
-```
-
 ---
 
-## Option 3 - Building from source
+## OPTION 2 - Building from source
+> *Make sure you have completed the tasks mentioned in the [Prerequisites](#🧰-prerequisites) section above before proceeding
 > Setup time 15 min
 
-#### Bitbucket/GitHub
-Step 1: Follow the Steps Outlined in Prerequisites
+🎥 [Demo Video](https://link.us1.storjshare.io/jwett4vprqdewetmw7vmvptq6wea/lcubestudios%2FClients%20recordings%2FSlingshot%2FLCube-Slignshot-Git.mp4)
 
-Step 2: Install Server Requirements
+#### Before you Start:
 
--   ✅ python3
--   ✅ pip3
--   ✅ PHP 7.4
--   ✅ Bash
--   ✅ apache2
--   ✅ ffmpeg
-
-Step 3: Install the Dependencies 
-
--   ✅ [Clone Code](https://github.com/lcubestudios/slignshot-api.git) 
--   ✅ Change Git branch to dev
+##### Git
+Make sure you are on the **dev** branch (run the following command inside the terminal)
 ```sh
 git checkout dev
 ```
--   ✅ pip install -r requirements.txt
 
-Step 4: Update Configurations
+#### Step 1: Install Server Requirements
+> You can use `apt-get` or `homebrew`
+- python3
+- pip3
+- PHP 7.4
+- Bash
+- apache2
+- ffmpeg
 
-Update .env file inside the app folder, comment on any variable(s) you don’t plan to use.
+#### Step 2: Install the Dependencies 
+Run the following command inside the terminal:
+```
+pip install -r requirements.txt
+```
 
--   ✅ Database Credentials
--   ✅ Database Ports
--   ✅ PhpMyAdmin Ports
--   ✅ Google Key
+#### Step 3: Set up environment
 
-Step 5: Update existing database
+1. Move the Google API Key file `key.json` to the root directory
+2. Duplicate the `.env.sample` file and rename it to `.env`
+3. Update `.env` variables
+    > For this option **ONLY** update the following variables
 
-Run the following command inside Mysql or PHPMyAdmin
+    ```
+    ## DATABASE ##
+    DATABASE_HOST=“YOUR_DB_IP”
+    DATABASE_NAME=“YOUR_DB_NAME”
+    DATABASE_USER=“YOUR_DB_USERNAME”
+    DATABASE_USER_PASSWORD=“YOUR_DB_PASSWORD”
+    DATABASE_PORT=YOUR_PORT
 
-```sh
+    ## PROJECT ROOT ##
+    REPO_DIRECTORY="PATH/TO/PROJECT/DIRECTORY"
+    
+    ## GOOGLE KEY ##
+    GOOGLE_APPLICATION_CREDENTIALS=PATH/TO/PROJECT/DIRECTORY/key.json
+    ```
+
+#### Step 4: Update database
+
+Run the following command inside _Mysql_ or _PHPMyAdmin_
+
+```sql
 ALTER TABLE `ast_voicemessages` ADD `audioname` VARCHAR(80) NOT NULL AFTER `flag`, ADD `lastmodify` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) AFTER `audioname`;
 ```
 
-Step 6: Test the Endpoints
+#### Step 5: Test endpoints
+1. In **POSTMAN** Update `server` variable in the collection to your server address
+2. Test CRUD commands in **POSTMAN** collection: `GET`, `PUT`, `POST`, `DELETE`
 
-Verify the deployment by navigating to your server address in your preferred browser.
-
--   ✅ Update {{server}} variable in the collection to your Server address
--   ✅ GET, PUT, POST, DELETE  
+#### 🎉 DONE
 
 ---
 
 ## How to use the solution
 
-(Endpoint documentation also available inside Postman Collection.)
+#### GET
+> Load udio by ID
 
-#### GET (Load Single Audio Values) 
-- Endpoint: localhost/trigger.php/?id=1234567890
-- Query Params: id=number
-- You can send the ID in the URL
-- No JSON data is needed
+##### Endpoint: 
+`{{ server url }}/trigger.php?id={{ msg id }}`
 
-#### POST (Transcribe audio(s) from a folder)
-- Endpoint: localhost/trigger.php
-- Transcribes audio to text from a directory. No parameters are needed.
-- The directory path needs to be specified at the .env level.
+##### Query Parameters: 
+- id : message id
 
-#### PUT (Transcribe Existing Audio)
-- Endpoint: localhost/trigger.php/
-- Send ID as JSON
-- Ex: { "id": 1234567890}
+##### Example:
 
-#### PUT (Transcribe All existing Audios)
-- Endpoint: localhost/trigger.php
-- Transcribes all voicemails where text_adudio is NULL.
-- No ID or JSON data is needed
+**GET**localhost/trigger.php?id=1
+**response**
 
-#### DELETE (Delete a Record)
-- Delete a record from the database.
-- JSON data is expected.
-- Ex: {"id": 1642295310}
+```json
+{
+    "success": "true", 
+    "status": 200,
+    "message": "Record Found.", 
+    "results": {
+        "msg_id": 1,
+        "audioname": "audio.wav",
+        "txtrecording": "Lorem ipsum",
+        "more_data": "..."
+    }
+}
+```
+
+#### POST
+> Transcribe all audio files from a folder
+
+##### Endpoint: 
+`{{ server url }}/trigger.php`
+
+##### Example:
+
+**POST**/localhost/trigger.php
+**response**
+
+```json
+{
+    "success": "true", 
+    "status": 200,
+    "message": "X record(s) has been added.", 
+    "results": [{
+        "audioname": "audio.wav",
+        "dir": "/path/to/audio/",
+        "duration": "in seconds",
+        "txtrecording": "Lorem ipsum",
+    }, { "more_data": "..." }]
+}
+```
+
+#### PUT (Single)
+> Transcribe Audio by ID
+
+##### Endpoint: 
+`{{ server url }}/trigger.php?id={{ msg id }}`
+
+##### Example:
+
+**PUT**/localhost/trigger.php?id=1
+**response**
+
+```json
+{
+    "success": "true", 
+    "status": 200,
+    "message": "Record has been updated.", 
+    "results": {
+        "msg_id": 1,
+        "audioname": "audio.wav",
+        "duration": "in seconds",
+        "txtrecording": "Lorem ipsum",
+    }
+}
+```
+
+#### PUT (All)
+> Transcribe all audios with no transcript
+
+##### Endpoint: 
+`{{ server url }}/trigger.php`
+
+##### Example:
+
+**PUT**/localhost/trigger.php
+**response**
+
+```json
+{
+    "success": "true", 
+    "status": 200,
+    "message": "X record(s) has been updated.", 
+    "results": [{
+        "msg_id": 1,
+        "audioname": "audio.wav",
+        "duration": "in seconds",
+        "txtrecording": "Lorem ipsum",
+    }, { "more_data": "..." }]
+}
+```
+
+#### DELETE
+> Delete record by ID
+
+##### Endpoint: 
+`{{ server url }}/trigger.php?id={{ msg_id }}`
+
+##### Example:
+
+**DELETE**/localhost/trigger.php?id=1
+**response**
+
+```json
+{
+    "success": "true", 
+    "status": 200,
+    "message": "Record has been deleted.", 
+    "results": {
+        "msg_id": 1
+    }
+}
+```
 
 ---
 
-## 📣 Join our Community 
--   [Discord](https://discord.com/invite/6Ud9x23zaK)
--   [Instagram](https://www.instagram.com/lcubestudios)
--   [Twitter](https://www.twitter.com/lcubestudios/)
--   [Calendly](https://calendly.com/lcubestudios/30min)
--   [LCubestudios.io](https://Lcubestudios.io)
--   [Contact@lcubestudios.io]("mailto:Contact@lcubestudios.io")
----
+## 👋 Meet the Authors
 
-## 👋 Meet the Authors on LinkedIn
--   [LCube Studios](https://www.linkedin.com/company/lcubestudios/)
--   [Luis Muñoz](https://www.linkedin.com/in/lmunoz0806/)
--   [Dennys Cedeño​](https://www.linkedin.com/in/dcedenor/)
----
- 
-## 🧑🏼‍💻 Follow the Authors on GitHub
--   [LCube Studios](https://github.com/lcubestudios)
--   [Luis Muñoz](https://github.com/lmunoz0806)
--   [Dennys Cedeño​](https://github.com/dennys9415)
+### Luis Muñoz
+
+- [LinkedIn](https://www.linkedin.com/in/lmunoz0806/)
+- [Github](https://github.com/lmunoz0806)
+
+### Dennys Cedeño
+
+- [LinkedIn](https://www.linkedin.com/in/dcedenor/)
+- [Github](https://github.com/dennys9415)
+
+## 📣 Connect with LCube Studios
+- 🌎 [Website](https://Lcubestudios.io)
+- ✉️ [Contact Us]("mailto:Contact@lcubestudios.io")
+- 📅 [Let's Meet](https://calendly.com/lcubestudios/30min)
+#### Follow Us
+- [LinkedIn](https://www.linkedin.com/company/lcubestudios/)
+- [Instagram](https://www.instagram.com/lcubestudios)
+- [Facebook](https://www.facebook.com/lcubestudiosnyc/)
+- [Twitter](https://www.twitter.com/lcubestudios/)
+- [Discord](https://discord.com/invite/6Ud9x23zaK)
+- [Github](https://github.com/lcubestudios)
+
+## 💡 Let's make your FrameWork 
+
+
+
