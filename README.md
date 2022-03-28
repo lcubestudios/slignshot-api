@@ -65,7 +65,7 @@ git checkout docker
 
 #### Step 1: Install Docker
 
-Follow [this link](https://hub.docker.com/) to install Docker on your environment
+Follow [this link](https://docs.docker.com/engine/install/) to install Docker on your environment
 
 #### Step 2: Set up environment
 
