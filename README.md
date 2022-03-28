@@ -23,7 +23,7 @@ A modular batch application that extracts, transcodes, and transforms the proper
     > Keep this terminal active, this is where you will be required to run the commands stated below
 
 #### Postman
-- [Download](https://www.postman.com/) Postman
+- [Download](https://www.postman.com/downloads/) Postman
 - Follow [How to Guide](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/) to Import Postman [Collection](https://www.postman.com/collections/66e38d8752042b4b1f4a)
 
 #### Google API Key
