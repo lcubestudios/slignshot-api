@@ -202,7 +202,7 @@ ALTER TABLE `ast_voicemessages` ADD `audioname` VARCHAR(80) NOT NULL AFTER `flag
 ## How to use the solution
 
 #### GET
-> Load udio by ID
+> Load audio by ID
 
 ##### Endpoint: 
 `{{ server url }}/trigger.php?id={{ msg id }}`
