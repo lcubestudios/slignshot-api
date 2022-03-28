@@ -66,7 +66,7 @@ git checkout docker
 
 #### Step 1: Install Docker
 
-1) Follow [this link](https://hub.docker.com/) to install Docker on your environment
+Follow [this link](https://hub.docker.com/) to install Docker on your environment
 
 #### Step 2: Set up environment
 
@@ -111,7 +111,7 @@ git checkout docker
     ```
 
 
-2. Verify containers are runing (run the following command inside the terminal)
+3. Verify containers are runing (run the following command inside the terminal)
 
     ```sh
     docker ps -a
