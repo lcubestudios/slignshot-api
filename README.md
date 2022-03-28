@@ -24,7 +24,7 @@ A modular batch application that extracts, transcodes, and transforms the proper
 
 #### Postman
 - [Download](https://www.postman.com/) Postman
-- Follow [How to Guide](https://www.postman.com/collections/eeda3ef277fca5943050) to Import Postman [Collection](https://www.postman.com/collections/66e38d8752042b4b1f4a)
+- Follow [How to Guide](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/) to Import Postman [Collection](https://www.postman.com/collections/66e38d8752042b4b1f4a)
 
 #### Google API Key
 - Follow [How to Guide](https://cloud.google.com/speech-to-text/docs/libraries#setting_up_authentication) to set up authentication
@@ -34,7 +34,6 @@ A modular batch application that extracts, transcodes, and transforms the proper
 ## 📚 Additional Links
 
 -   [Docker Hub](https://www.docker.com/products/docker-hub)
--   [Postman Importing Data](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
 -   [Google Speech-to-Text Product Information](https://cloud.google.com/speech-to-text)
 
 ## 🏃Running the Solution
