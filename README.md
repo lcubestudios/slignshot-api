@@ -212,7 +212,7 @@ ALTER TABLE `ast_voicemessages` ADD `audioname` VARCHAR(80) NOT NULL AFTER `flag
 
 ##### Example:
 
-**GET**localhost/trigger.php?id=1
+**GET**/localhost/trigger.php?id=1
 **response**
 
 ```json
