@@ -111,7 +111,7 @@ Follow [this link](https://hub.docker.com/) to install Docker on your environmen
     ```
 
 
-3. Verify containers are runing (run the following command inside the terminal)
+3. Verify containers are running (run the following command inside the terminal)
 
     ```sh
     docker ps -a
